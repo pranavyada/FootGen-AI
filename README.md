@@ -1,15 +1,23 @@
-# FootGen-AI
-Conversational Agent for Football Insights using Gen-AI
+# FootGen-AI: Conversational Agent for Football Insights using Gen-AI
 
-This project aims to develop an AI-powered chatbot that leverages generative AI models to deliver accurate, real-time football-related information in a user-friendly, conversational format, making it easier for users to engage with football data.
-We aim to :
-  Provides conversational insights specifically designed for football analysts and fans seeking detailed, real-time information.
-  Customizes a GPT-based model to answer real-time football-related queries within the app, offering accurate and dynamic responses.
-  Transforms the way users access football data, simplifying information retrieval and providing an intuitive, engaging experience.
+## Overview
+FootGen-AI is an AI-powered chatbot designed to provide real-time football-related information in a conversational format. This project leverages generative AI models to offer accurate, dynamic insights to football analysts and fans, simplifying data retrieval and enhancing user engagement with football data.
 
-Data Sources
-Football-Data.co.uk: Offers comprehensive match details, including home and away teams, goals, corners, yellow/red cards, fouls, free kicks, Bet365 odds, and historical game data, which help in predicting underdog and favorite teams.
-FBref: Provides detailed player statistics per season, including metrics like goals, assists, passes made, and distance passed, essential for analyzing player performance.
-WhoScored.com: Supplies raw player performance data, such as shots, passes, and ratings, which are analyzed to derive insights into player and team dynamics during matches.
+## Key Features
+- **Real-time football insights**: Get detailed, up-to-date information about teams, players, and matches.
+- **Custom GPT-based model**: A fine-tuned model answering real-time football-related queries, delivering accurate and dynamic responses.
+- **Intuitive user experience**: Simplifies access to football data, making the app more engaging and easy to use.
 
+## Data Sources
+The project integrates data from the following sources:
 
+1. **Football-Data.co.uk**: 
+   - Offers comprehensive match details such as teams, goals, yellow/red cards, corners, fouls, free kicks, Bet365 odds, and historical data. 
+   - This data aids in predicting match outcomes, including underdog and favorite team analysis.
+
+2. **FBref**: 
+   - Provides detailed player statistics per season, including goals, assists, passes, and distance passed. 
+   - These metrics are crucial for in-depth player performance analysis.
+
+3. **WhoScored.com**: 
+   - Delivers raw player performance data (shots, passes, ratings), which is used to analyze team and player dynamics during matches.
