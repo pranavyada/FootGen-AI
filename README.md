@@ -21,5 +21,3 @@ The project integrates data from the following sources:
 
 3. **WhoScored.com**: 
    - Delivers raw player performance data (shots, passes, ratings), which is used to analyze team and player dynamics during matches.
-
-## RAG Implementation
