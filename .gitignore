@@ -1,0 +1,12 @@
+# Environment variables
+.env
+
+# Logs
+logs
+
+# ChromaDB
+chroma_db/
+
+# Match data csv files
+data/EPL
+data/LaLiga
