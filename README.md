@@ -80,13 +80,13 @@ Try these sample queries:
 
 For EPL:
 - "Show all matches between Manchester United and Liverpool"
-- "What was the score when Arsenal played Chelsea?"
-- "How many goals did Tottenham score at home?"
+- "What was the score when Arsenal played Chelsea in the 2023-2024 season?"
+- "Who was the referee for the match between Arsenal and Chelsea in the 2023-2024 season?"
 
 For La Liga:
-- "Show Barcelona vs Real Madrid matches"
-- "What was Atletico Madrid's home record?"
-- "Display matches where Sevilla won by more than 2 goals"
+- "How many red cards did Barcelona get in 2009-2010 season?"
+- "How many away goals did real madrid score in 2018-2019 season?"
+- "How many fouls did real mardrid commit during their home game against sevilla in 2019-2020 season?"
 
 ## Project Structure
 - app.py # Main Streamlit application\
