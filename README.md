@@ -1,4 +1,4 @@
-# FootbGen AI
+# FootGen AI
 
 An AI-powered system that enables natural language queries for football match data from the English Premier League and Spanish La Liga.
 
@@ -19,7 +19,6 @@ Before running the application, you need:
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/pranavyada/FootGen-AI.git
-cd football-query-system
 ```
 
 ### 2. Set Up Python Environment
@@ -48,9 +47,11 @@ pip install -r requirements.txt
 
 1. Install PostgreSQL if not already installed
 2. Create a new database in PostgreSQL
-3. Create two tables:
+3. Create two tables with the following columns:
    - `epl_data` for Premier League matches
+      - columns (datatype=text): Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,Referee,HS,AS,HST,AST,HF,AF,HC,AC,HY,AY,HR,AR,B365H,B365D,B365A,Season 
    - `laliga_data` for La Liga matches
+      - columns (datatype=text): Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,HS,AS,HST,AST,HF,AF,HC,AC,HY,AY,HR,AR,B365H,B365D,B365A,Season 
 
 ### 5. Environment Configuration
 
@@ -88,15 +89,15 @@ For La Liga:
 - "Display matches where Sevilla won by more than 2 goals"
 
 ## Project Structure
-├── app.py # Main Streamlit application
-├── agents.py # Query routing agents
-├── helper_functions.py # Utility functions
-├── merge_csvs.py # Data preprocessing
-├── requirements.txt # Dependencies
-└── data/ # Data directory
-      ├── EPL/ # EPL data files
-      ├── LaLiga/ # La Liga data files
-      └── csv_data/ # Processed files
+- app.py # Main Streamlit application\
+- agents.py # Query routing agents\
+- helper_functions.py # Utility functions\
+- merge_csvs.py # Data preprocessing\
+- requirements.txt # Dependencies\
+- data/ # Data directory\
+  - EPL/ # EPL data files\
+  - LaLiga/ # La Liga data files\
+  - csv_data/ # Processed files
 
 ## Troubleshooting
 
