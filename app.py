@@ -34,13 +34,13 @@ if "thread_id" not in st.session_state:
 def main():
     # Set page configuration
     st.set_page_config(
-        page_title="AI Swarm Chat",
+        page_title="FootGen AI",
         page_icon="🤖",
         layout="wide"
     )
     
     # Header
-    st.title("AI Swarm Chat")
+    st.title("FootGen AI")
     st.markdown(f"**Thread ID:** {st.session_state.thread_id}")  # Display the thread ID
     st.markdown("---")
 

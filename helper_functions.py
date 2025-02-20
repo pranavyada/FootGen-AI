@@ -114,7 +114,10 @@ def nl2sql_epl(natural_query: str, openai: OpenAI) -> str:
         "Season" TEXT          -- Season (e.g., "2005-2006")
     )
 
-    Teams names are as follows:
+    """
+
+    messages = [
+        {"role": "system", "content": """You are an expert SQL developer. Generate valid PostgreSQL SELECT queries based on the user's question about football matches. The generated response should only include the SQL query in markdown format and nothing else.Teams names are as follows:
     "Leicester","Swansea","Man United","Cardiff","Norwich","Ipswich","Liverpool","Crystal Palace","Wigan","Arsenal","Luton","Southampton"
 "Watford","Sheffield United","Bolton","Nott'm Forest","Chelsea","Charlton","Middlesbrough","Bournemouth","Burnley","Everton","Hull","West Ham"
 "Leeds","Birmingham","Derby","West Brom","Huddersfield","Blackpool","Reading","Fulham","Brentford","Portsmouth","Blackburn","Sunderland"
@@ -126,12 +129,7 @@ This is incorrect syntax:
 SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE ("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City' OR "HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United') AND "Season" = '2023-24';
 
 This is correct syntax:
-eTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE (("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City') OR ("HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United')) AND "Season" = '2023-2024';
-
-    """
-
-    messages = [
-        {"role": "system", "content": "You are an expert SQL developer. Generate valid PostgreSQL SELECT queries based on the user's question about football matches. The generated response should only include the SQL query in markdown format and nothing else."},
+eTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE (("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City') OR ("HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United')) AND "Season" = '2023-2024';"""},
         {"role": "system", "content": f"Here is the database schema:\n{schema_description}"},
         {"role": "user", "content": f"Generate a PostgreSQL query for this question: {natural_query}"}
     ]
@@ -239,7 +237,11 @@ def nl2sql_laliga(natural_query: str, openai: OpenAI) -> str:
         "Season" TEXT          -- Season (e.g., "2005-2006")
     )
 
-    Teams names are as follows:
+    
+    """
+
+    messages = [
+        {"role": "system", "content": """You are an expert SQL developer. Generate valid PostgreSQL SELECT queries based on the user's question about LaLiga football matches. The generated response should only include the SQL query in markdown format and nothing else.Teams names are as follows:
     "Cordoba","Tenerife","Murcia","Zaragoza","Las Palmas","Alaves","Real Madrid","Levante","Betis","Numancia","Sevilla","La Coruna",
     "Malaga","Ath Madrid","Xerez","Huesca","Granada","Sociedad","Valladolid","Ath Bilbao","Girona","Sp Gijon","Cadiz","Eibar","Getafe",
     "Santander","Villarreal","Vallecano","Recreativo","Leganes","Almeria","Barcelona","Hercules","Celta","Mallorca","Osasuna","Valencia",
@@ -251,11 +253,7 @@ def nl2sql_laliga(natural_query: str, openai: OpenAI) -> str:
     SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
 
     The incorrect syntax is:
-    SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
-    """
-
-    messages = [
-        {"role": "system", "content": "You are an expert SQL developer. Generate valid PostgreSQL SELECT queries based on the user's question about LaLiga football matches. The generated response should only include the SQL query in markdown format and nothing else."},
+    SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';"""},
         {"role": "system", "content": f"Here is the database schema:\n{schema_description}"},
         {"role": "user", "content": f"Generate a PostgreSQL query for this question: {natural_query}"}
     ]
