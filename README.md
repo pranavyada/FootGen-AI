@@ -3,7 +3,7 @@
 An AI-powered system that enables natural language queries for football match data from the English Premier League and Spanish La Liga.
 
 ## Overview
-This system allows users to query football match data using natural language through a chat interface. It supports both English Premier League and La Liga data, providing match statistics, results, and historical information.
+This system allows users to query football match data using natural language through a chat interface. It supports both English Premier League and La Liga data, providing match statistics, results, and historical information. Link to our data https://www.football-data.co.uk/data.php
 
 ## Prerequisites
 
