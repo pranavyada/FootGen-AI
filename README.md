@@ -86,7 +86,7 @@ For EPL:
 For La Liga:
 - "How many red cards did Barcelona get in 2009-2010 season?"
 - "How many away goals did real madrid score in 2018-2019 season?"
-- "How many fouls did real mardrid commit during their home game against sevilla in 2019-2020 season?"
+- "How many fouls were committed in 2019-2020 season in LaLiga?"
 
 ## Project Structure
 - app.py # Main Streamlit application\
