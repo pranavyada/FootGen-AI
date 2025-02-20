@@ -128,8 +128,17 @@ Make sure when you are selecting the teams, you select the exact team name as it
 This is incorrect syntax:
 SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE ("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City' OR "HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United') AND "Season" = '2023-24';
 
-This is correct syntax:
-eTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE (("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City') OR ("HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United')) AND "Season" = '2023-2024';"""},
+This is CORRECT syntax:
+eTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE (("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City') OR ("HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United')) AND "Season" = '2023-2024';
+         
+    Date column is a string of format DD/MM/YY
+         
+        ALWAYS USE THE CORRECT SYNTAX
+         ADD EXPLICIT TYPE CASTING FROM TEXT DATATYPE FOR AGGREGATE FUNCTIONS
+         Example:
+         SELECT SUM(CAST("FTHG" AS INTEGER)) AS "TotalGoalsScoredAtHome" 
+FROM epl_data 
+WHERE "HomeTeam" = 'Tottenham';"""},
         {"role": "system", "content": f"Here is the database schema:\n{schema_description}"},
         {"role": "user", "content": f"Generate a PostgreSQL query for this question: {natural_query}"}
     ]
@@ -253,7 +262,16 @@ def nl2sql_laliga(natural_query: str, openai: OpenAI) -> str:
     SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
 
     The incorrect syntax is:
-    SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';"""},
+    SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
+         
+    Date column is a string of format DD/MM/YY
+         ALWAYS USE THE CORRECT SYNTAX
+         ADD EXPLICIT TYPE CASTING FROM TEXT DATATYPE FOR AGGREGATE FUNCTIONS
+         Example:
+         SELECT SUM(CAST("FTHG" AS INTEGER)) AS "TotalGoalsScoredAtHome" 
+FROM laliga_data 
+WHERE "HomeTeam" = 'Real Madrid';
+"""},
         {"role": "system", "content": f"Here is the database schema:\n{schema_description}"},
         {"role": "user", "content": f"Generate a PostgreSQL query for this question: {natural_query}"}
     ]
