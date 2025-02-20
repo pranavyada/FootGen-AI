@@ -18,7 +18,7 @@ Before running the application, you need:
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/pranavyada/FootGen-AI.git
 cd football-query-system
 ```
 
@@ -88,15 +88,15 @@ For La Liga:
 - "Display matches where Sevilla won by more than 2 goals"
 
 ## Project Structure
-├── app.py # Main Streamlit application
-├── agents.py # Query routing agents
-├── helper_functions.py # Utility functions
-├── merge_csvs.py # Data preprocessing
-├── requirements.txt # Dependencies
-└── data/ # Data directory
-      ├── EPL/ # EPL data files
-      ├── LaLiga/ # La Liga data files
-      └── csv_data/ # Processed files
+├── app.py # Main Streamlit application\\
+├── agents.py # Query routing agents\\
+├── helper_functions.py # Utility functions\\
+├── merge_csvs.py # Data preprocessing\\
+├── requirements.txt # Dependencies\\
+└── data/ # Data directory\\
+      ├── EPL/ # EPL data files\\
+      ├── LaLiga/ # La Liga data files\\
+      └── csv_data/ # Processed files\\
 
 ## Troubleshooting
 
