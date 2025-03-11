@@ -3,7 +3,7 @@
 
 # Utils
 footgenai
-__pycache__
+__pycache__/
 logs
 
 # ChromaDB
@@ -12,3 +12,6 @@ chroma_db/
 # Match data csv files
 data/EPL
 data/LaLiga
+
+# Conversations
+conversations/

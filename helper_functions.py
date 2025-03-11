@@ -148,7 +148,7 @@ WHERE "HomeTeam" = 'Tottenham';"""},
             messages=messages,
             model="gpt-3.5-turbo",
             temperature=0,
-            max_tokens=150
+            max_tokens=250
         )
         
         sql_query = response.choices[0].message.content.strip()

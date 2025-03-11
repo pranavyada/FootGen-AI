@@ -4,6 +4,8 @@ import streamlit as st
 from swarm import Swarm, Agent
 import uuid
 from mem0 import Memory
+import json
+from datetime import datetime
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from agents import manager
@@ -23,13 +25,58 @@ config = {
 client = Swarm()
 memory = Memory.from_config(config)
 
-# Initialize session state for chat history and thread ID
+# Add this near the top of the file, after imports
+if not os.path.exists("conversations"):
+    os.makedirs("conversations")
+
+# Add these functions at the top level, after the imports
+def save_conversation(messages, thread_id):
+    """Save conversation history to a JSON file"""
+    
+    filename = f"conversations/{thread_id}.json"
+    with open(filename, "w") as f:
+        json.dump({
+            "thread_id": thread_id,
+            "timestamp": datetime.now().isoformat(),
+            "messages": messages
+        }, f)
+
+def load_conversation(thread_id):
+    """Load conversation history from a JSON file"""
+    filename = f"conversations/{thread_id}.json"
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            data = json.load(f)
+            return data["messages"]
+    return []
+
+def format_timestamp(timestamp_str):
+    """Format ISO timestamp to a more readable format"""
+    dt = datetime.fromisoformat(timestamp_str)
+    return dt.strftime("%Y-%m-%d %H:%M")
+
+def load_conversation_preview(thread_id):
+    """Load conversation preview from a JSON file"""
+    filename = f"conversations/{thread_id}.json"
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            data = json.load(f)
+            # Get the first message content (truncated) and timestamp
+            first_message = data["messages"][0]["content"] if data["messages"] else "Empty conversation"
+            preview = first_message[:50] + "..." if len(first_message) > 50 else first_message
+            return {
+                "preview": preview
+            }
+    return None
+
+# Modify the session state initialization
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Generate a new thread ID for each run
 if "thread_id" not in st.session_state:
-    st.session_state.thread_id = str(uuid.uuid4())  # Generate a unique thread ID
+    st.session_state.thread_id = str(uuid.uuid4())
+    # Try to load existing conversation for new thread
+    st.session_state.messages = load_conversation(st.session_state.thread_id)
 
 def main():
     # Set page configuration
@@ -43,6 +90,43 @@ def main():
     st.title("FootGen AI")
     st.markdown(f"**Thread ID:** {st.session_state.thread_id}")  # Display the thread ID
     st.markdown("---")
+
+    # Replace the dropdown with a list of conversations
+    st.sidebar.title("Past Conversations")
+    
+    # Add New Chat button at the top of sidebar
+    if st.sidebar.button("New Chat", use_container_width=True):
+        st.session_state.thread_id = str(uuid.uuid4())
+        st.session_state.messages = []
+        st.rerun()
+
+    st.sidebar.markdown("---")
+
+    # Show saved conversations as a list
+    conversation_files = [f.replace(".json", "") for f in os.listdir("conversations") if f.endswith(".json")]
+    
+    for thread_id in sorted(conversation_files, reverse=True):
+        preview = load_conversation_preview(thread_id)
+        if preview:
+            with st.sidebar.container():
+                col1, col2 = st.sidebar.columns([7, 3])
+                with col1:
+                    if st.button(
+                        f"📝 {preview['preview']}\n\n",
+                        key=thread_id,
+                        use_container_width=True
+                    ):
+                        st.session_state.thread_id = thread_id
+                        st.session_state.messages = load_conversation(thread_id)
+                        st.rerun()
+                with col2:
+                    if st.button("🗑️", key=f"delete_{thread_id}", help="Delete conversation"):
+                        os.remove(f"conversations/{thread_id}.json")
+                        if thread_id == st.session_state.thread_id:
+                            st.session_state.thread_id = str(uuid.uuid4())
+                            st.session_state.messages = []
+                        st.rerun()
+                st.sidebar.markdown("---")
 
     # Display chat history
     for message in st.session_state.messages:
@@ -91,6 +175,8 @@ def main():
                         metadata={"category": "assistant"}
                     )
                     st.session_state.messages.append({"role": "assistant", "content": str(result)})
+                    # Save conversation after adding the message
+                    save_conversation(st.session_state.messages, st.session_state.thread_id)
                 else:
                     response_content = response.messages[-1]['content']
                     st.markdown(response_content)
@@ -101,6 +187,8 @@ def main():
                         metadata={"category": "assistant"}
                     )
                     st.session_state.messages.append({"role": "assistant", "content": response_content})
+                    # Save conversation after adding the message
+                    save_conversation(st.session_state.messages, st.session_state.thread_id)
 
 if __name__ == "__main__":
     main()
