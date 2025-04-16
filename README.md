@@ -8,6 +8,32 @@ This system allows users to query football match data using natural language thr
 ## System Architecture
 ![System Architecture](Architecture-diagram.jpg)
 
+## Methodology
+FootGen AI integrates a modular architecture combining natural language understanding with structured football data. The pipeline includes:
+
+- **Data Collection & ETL:** Historical match data for EPL and La Liga was scraped from football-data.co.uk and cleaned before being loaded into a PostgreSQL database using Python-based ETL scripts.
+
+- **Conversational Frontend:** Users interact through a Streamlit app that uses OpenAI embeddings and ChromaDB to maintain contextual memory for seamless multi-turn dialogue.
+
+- **Multi-Agent System:** An OpenAI Swarm-based architecture routes queries through a manager agent to league-specific agents, ensuring domain-aware responses.
+
+- **NL2SQL Querying:** Natural language queries are converted into SQL using GPT-3.5-turbo with few-shot prompting, and results are translated into human-readable responses.
+
+This architecture allows users to ask complex football questions without needing to know SQL.
+
+
+
+## Project Structure
+- `app.py`: Main Streamlit application
+- `agents.py`: Query routing agents
+- `helper_functions.py`: Utility functions
+- `merge_csvs.py`: Data preprocessing
+- `requirements.txt`: Dependencies
+- `data/`: Data directory
+  - `EPL/`: EPL data files
+  - `LaLiga/`: La Liga data files
+  - `csv_data/`: Processed files
+
 ## Prerequisites
 
 Before running the application, you need:
@@ -90,20 +116,6 @@ For La Liga:
 - "How many red cards did Barcelona get in 2009-2010 season?"
 - "How many away goals did real madrid score in 2018-2019 season?"
 - "How many fouls were committed in 2019-2020 season in LaLiga?"
-
-## Project Structure
-- app.py # Main Streamlit application\
-- agents.py # Query routing agents\
-- helper_functions.py # Utility functions\
-- merge_csvs.py # Data preprocessing\
-- requirements.txt # Dependencies\
-- data/ # Data directory\
-  - EPL/ # EPL data files\
-  - LaLiga/ # La Liga data files\
-  - csv_data/ # Processed files
-
-## Methodology
-
 
 ## Troubleshooting
 
