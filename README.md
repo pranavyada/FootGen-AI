@@ -126,7 +126,7 @@ Common issues and solutions:
 
 ## Demo
 Click the thumbnail below to be redirected to the full demo video on YouTube.
-[![Watch the demo]](https://youtu.be/aWG0FntlFfE)
+[![Watch the demo](video_thumbnail.png)](https://youtu.be/aWG0FntlFfE)
 
 ## Support
 
