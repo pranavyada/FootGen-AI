@@ -210,8 +210,8 @@ def query_epl(natural_query: str) -> str:
                 information about football matches. Your task is to summarize the database
                  query results into natural language."""},
                 {"role": "user", 
-                "content": f"Summarize the following football match query results in 
-                natural language:\n{results_context}"}
+                "content": f"Summarize the following football match query results in "\
+                f"natural language:\n{results_context}"}
             ],
             model="gpt-3.5-turbo",
             temperature=0.7,
@@ -357,8 +357,8 @@ def query_laliga(natural_query: str) -> str:
                  LaLiga football matches. Your task is to summarize the database query
                   results into natural language."""},
                 {"role": "user",
-                 "content": f"Summarize the following LaLiga match query results in 
-                 natural language:\n{results_summary}"}
+                 "content": f"Summarize the following LaLiga match query results in "\
+                 f"natural language:\n{results_summary}"}
             ],
             model="gpt-3.5-turbo",
             temperature=0.7,

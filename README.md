@@ -125,7 +125,7 @@ Common issues and solutions:
    - Ensure CSV format matches schema
 
 ## Demo
-![Demo](sample_video.mp4)
+[![Watch the demo](video_thumbnail.png)](https://youtu.be/aWG0FntlFfE)
 
 ## Support
 
