@@ -117,28 +117,40 @@ def nl2sql_epl(natural_query: str, openai: OpenAI) -> str:
     """
 
     messages = [
-        {"role": "system", "content": """You are an expert SQL developer. Generate valid PostgreSQL SELECT queries based on the user's question about football matches. The generated response should only include the SQL query in markdown format and nothing else.Teams names are as follows:
-    "Leicester","Swansea","Man United","Cardiff","Norwich","Ipswich","Liverpool","Crystal Palace","Wigan","Arsenal","Luton","Southampton"
-"Watford","Sheffield United","Bolton","Nott'm Forest","Chelsea","Charlton","Middlesbrough","Bournemouth","Burnley","Everton","Hull","West Ham"
-"Leeds","Birmingham","Derby","West Brom","Huddersfield","Blackpool","Reading","Fulham","Brentford","Portsmouth","Blackburn","Sunderland"
-"Brighton","Newcastle","QPR","Stoke","Man City","Wolves","Tottenham","Aston Villa","Wolves","Tottenham","Aston Villa"
+        {"role": "system", "content": """You are an expert SQL developer. 
+        Generate valid PostgreSQL SELECT queries based on the user's question about football matches.
+        The generated response should only include the SQL query in markdown format and nothing else.
+        Teams names are as follows: "Leicester","Swansea","Man United","Cardiff","Norwich","Ipswich",
+        "Liverpool","Crystal Palace","Wigan","Arsenal","Luton","Southampton","Watford","Sheffield United",
+        "Bolton","Nott'm Forest","Chelsea","Charlton","Middlesbrough","Bournemouth","Burnley","Everton",
+        "Hull","West Ham","Leeds","Birmingham","Derby","West Brom","Huddersfield","Blackpool","Reading",
+        "Fulham","Brentford","Portsmouth","Blackburn","Sunderland","Brighton","Newcastle","QPR","Stoke",
+        "Man City","Wolves","Tottenham","Aston Villa","Wolves","Tottenham","Aston Villa"
 
-Make sure when you are selecting the teams, you select the exact team name as it is in the database as specified above.
+        Make sure when you are selecting the teams, you select the exact team name as it is in the 
+        database as specified above.
 
-This is incorrect syntax:
-SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE ("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City' OR "HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United') AND "Season" = '2023-24';
+        This is incorrect syntax:
+        SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" 
+        FROM epl_data 
+        WHERE ("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City' 
+        OR "HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United') AND "Season" = '2023-24';
 
-This is CORRECT syntax:
-eTeam", "AwayTeam", "FTHG", "FTAG" FROM epl_data WHERE (("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City') OR ("HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United')) AND "Season" = '2023-2024';
+        This is CORRECT syntax:
+        SELECT HomeTeam", "AwayTeam", "FTHG", "FTAG" 
+        FROM epl_data 
+        WHERE (("HomeTeam" = 'Man United' AND "AwayTeam" = 'Man City') 
+        OR ("HomeTeam" = 'Man City' AND "AwayTeam" = 'Man United')) AND "Season" = '2023-2024';
          
-    Date column is a string of format DD/MM/YY
+        Date column is a string of format DD/MM/YY
          
         ALWAYS USE THE CORRECT SYNTAX
-         ADD EXPLICIT TYPE CASTING FROM TEXT DATATYPE FOR AGGREGATE FUNCTIONS
-         Example:
-         SELECT SUM(CAST("FTHG" AS INTEGER)) AS "TotalGoalsScoredAtHome" 
-FROM epl_data 
-WHERE "HomeTeam" = 'Tottenham';"""},
+        ADD EXPLICIT TYPE CASTING FROM TEXT DATATYPE FOR AGGREGATE FUNCTIONS
+        Example:
+        SELECT SUM(CAST("FTHG" AS INTEGER)) AS "TotalGoalsScoredAtHome" 
+        FROM epl_data 
+        WHERE "HomeTeam" = 'Tottenham';
+        """},
         {"role": "system", "content": f"Here is the database schema:\n{schema_description}"},
         {"role": "user", "content": f"Generate a PostgreSQL query for this question: {natural_query}"}
     ]
@@ -194,8 +206,12 @@ def query_epl(natural_query: str) -> str:
 
         response = openai.chat.completions.create(
             messages=[
-                {"role": "system", "content": "You are a helpful assistant who provides information about football matches. Your task is to summarize the database query results into natural language."},
-                {"role": "user", "content": f"Summarize the following football match query results in natural language:\n{results_context}"}
+                {"role": "system", "content": """You are a helpful assistant who provides 
+                information about football matches. Your task is to summarize the database
+                 query results into natural language."""},
+                {"role": "user", 
+                "content": f"Summarize the following football match query results in 
+                natural language:\n{results_context}"}
             ],
             model="gpt-3.5-turbo",
             temperature=0.7,
@@ -250,28 +266,36 @@ def nl2sql_laliga(natural_query: str, openai: OpenAI) -> str:
     """
 
     messages = [
-        {"role": "system", "content": """You are an expert SQL developer. Generate valid PostgreSQL SELECT queries based on the user's question about LaLiga football matches. The generated response should only include the SQL query in markdown format and nothing else.Teams names are as follows:
-    "Cordoba","Tenerife","Murcia","Zaragoza","Las Palmas","Alaves","Real Madrid","Levante","Betis","Numancia","Sevilla","La Coruna",
-    "Malaga","Ath Madrid","Xerez","Huesca","Granada","Sociedad","Valladolid","Ath Bilbao","Girona","Sp Gijon","Cadiz","Eibar","Getafe",
-    "Santander","Villarreal","Vallecano","Recreativo","Leganes","Almeria","Barcelona","Hercules","Celta","Mallorca","Osasuna","Valencia",
-    "Elche","Gimnastic","Espanol"
+        {"role": "system", "content": """You are an expert SQL developer. Generate valid PostgreSQL 
+        SELECT queries based on the user's question about LaLiga football matches. The generated 
+        response should only include the SQL query in markdown format and nothing else.Teams names 
+        are as follows:"Cordoba","Tenerife","Murcia","Zaragoza","Las Palmas","Alaves","Real Madrid",
+        "Levante","Betis","Numancia","Sevilla","La Coruna","Malaga","Ath Madrid","Xerez","Huesca",
+        "Granada","Sociedad","Valladolid","Ath Bilbao","Girona","Sp Gijon","Cadiz","Eibar","Getafe",
+        "Santander","Villarreal","Vallecano","Recreativo","Leganes","Almeria","Barcelona","Hercules",
+        "Celta","Mallorca","Osasuna","Valencia","Elche","Gimnastic","Espanol"
 
-    Make sure when you are selecting the teams, you select the exact team name as it is in the database as specified above.
+        Make sure when you are selecting the teams, you select the exact team name as it is in the 
+        database as specified above.
 
-    The correct syntax is:
-    SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
+        The correct syntax is:
+        SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data 
+        WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
 
-    The incorrect syntax is:
-    SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
+        The incorrect syntax is:
+        SELECT "HomeTeam", "AwayTeam", "FTHG", "FTAG" FROM laliga_data 
+        WHERE ("HomeTeam" = 'Real Madrid' AND "AwayTeam" = 'Barcelona') AND "Season" = '2023-2024';
          
-    Date column is a string of format DD/MM/YY
-         ALWAYS USE THE CORRECT SYNTAX
-         ADD EXPLICIT TYPE CASTING FROM TEXT DATATYPE FOR AGGREGATE FUNCTIONS
-         Example:
-         SELECT SUM(CAST("FTHG" AS INTEGER)) AS "TotalGoalsScoredAtHome" 
-FROM laliga_data 
-WHERE "HomeTeam" = 'Real Madrid';
-"""},
+        Date column is a string of format DD/MM/YY
+        
+        ALWAYS USE THE CORRECT SYNTAX
+        
+        ADD EXPLICIT TYPE CASTING FROM TEXT DATATYPE FOR AGGREGATE FUNCTIONS
+        Example:
+        SELECT SUM(CAST("FTHG" AS INTEGER)) AS "TotalGoalsScoredAtHome" 
+        FROM laliga_data 
+        WHERE "HomeTeam" = 'Real Madrid';
+        """},
         {"role": "system", "content": f"Here is the database schema:\n{schema_description}"},
         {"role": "user", "content": f"Generate a PostgreSQL query for this question: {natural_query}"}
     ]
@@ -322,12 +346,19 @@ def query_laliga(natural_query: str) -> str:
     # Step 3: Generate Natural Language Response
     try:
         results_summary = results_df.to_dict(orient="records")
+        # formatted_data = json.dumps(results_summary, indent=2)
         results_context = f"The results of the query are:\n{results_summary}"
+        
 
         response = openai.chat.completions.create(
             messages=[
-                {"role": "system", "content": "You are a helpful assistant who provides information about LaLiga football matches. Your task is to summarize the database query results into natural language."},
-                {"role": "user", "content": f"Summarize the following LaLiga match query results in natural language:\n{results_context}"}
+                {"role": "system", 
+                "content": """You are a helpful assistant who provides information about
+                 LaLiga football matches. Your task is to summarize the database query
+                  results into natural language."""},
+                {"role": "user",
+                 "content": f"Summarize the following LaLiga match query results in 
+                 natural language:\n{results_summary}"}
             ],
             model="gpt-3.5-turbo",
             temperature=0.7,

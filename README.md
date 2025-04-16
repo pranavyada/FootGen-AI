@@ -6,7 +6,7 @@ An AI-powered system that enables natural language queries for football match da
 This system allows users to query football match data using natural language through a chat interface. It supports both English Premier League and La Liga data, providing match statistics, results, and historical information. Link to our data https://www.football-data.co.uk/data.php
 
 ## System Architecture
-![System Architecture](Picture1.png)
+![System Architecture](Architecture-diagram.png)
 
 ## Prerequisites
 
@@ -102,6 +102,9 @@ For La Liga:
   - LaLiga/ # La Liga data files\
   - csv_data/ # Processed files
 
+## Methodology
+
+
 ## Troubleshooting
 
 Common issues and solutions:
@@ -120,6 +123,9 @@ Common issues and solutions:
    - Verify CSV files are in correct directories
    - Check file permissions
    - Ensure CSV format matches schema
+
+## Demo
+![Demo](sample_video.mp4)
 
 ## Support
 
